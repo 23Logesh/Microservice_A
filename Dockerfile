@@ -1,4 +1,4 @@
-# Use OpenJDK 21 as base image
+# Use OpenJDK 17 as base image
 FROM eclipse-temurin:21-jdk
 
 # Set the working directory
