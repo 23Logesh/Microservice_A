@@ -21,6 +21,8 @@ spring:
     console:
       enabled: true
       path: /h2-console
+      settings:
+        web-allow-others=true:
 
   kafka:
     bootstrap-servers: 127.0.0.1:9092
