@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class BikeEntityA {
+public class EntityA {
 
 	
 	@Id

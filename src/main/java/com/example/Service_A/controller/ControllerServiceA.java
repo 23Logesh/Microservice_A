@@ -5,19 +5,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.Service_A.ServiceInter.BikeServiceAServiceInterface;
-import com.example.Service_A.dto.BikeDtoA;
+import com.example.Service_A.ServiceInter.ServiceAServiceInterface;
+import com.example.Service_A.dto.DtoA;
 
 @RestController
-public class BikeControllerServiceA {
+public class ControllerServiceA {
 	
 	@Autowired
-	BikeServiceAServiceInterface bikeServiceAServiceInterface;
+	ServiceAServiceInterface serviceAServiceInterface;
 	
 	
 	@PostMapping("/saveBikeA")
-	public BikeDtoA saveBikeA(@RequestBody BikeDtoA bikeDto) {
-		 return bikeServiceAServiceInterface.saveBikeA(bikeDto);
+	public DtoA saveBikeA(@RequestBody DtoA bikeDto) {
+		 return serviceAServiceInterface.saveBikeA(bikeDto);
 	}
 
 }
