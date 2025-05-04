@@ -10,12 +10,8 @@ import lombok.Data;
 @Data
 public class EntityA {
 
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int bikenumber;
-	private String bikeName;
-	private String bikeModel;
-	private String bikeType;
-
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String message;
 }

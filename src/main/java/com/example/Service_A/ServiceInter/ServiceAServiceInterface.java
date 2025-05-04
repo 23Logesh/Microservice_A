@@ -4,6 +4,6 @@ import com.example.Service_A.dto.DtoA;
 
 public interface ServiceAServiceInterface {
 	
-	public DtoA saveBikeA(DtoA bikeDto);
+	public DtoA saveA(DtoA dto);
 
 }
