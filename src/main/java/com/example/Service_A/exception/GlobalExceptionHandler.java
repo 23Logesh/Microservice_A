@@ -1,7 +1,6 @@
 package com.example.Service_A.exception;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,41 +13,36 @@ import com.example.Service_A.utility.ResponseStructure;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	
-	@Autowired
-	private ResponseStructure responseStructure;
 
-	
 	@ExceptionHandler(NullPointerException.class)
-	public ResponseEntity<ResponseStructure> NullPointerException(NullPointerException e){
-		responseStructure.setMessage("NullPointerException - Occured");
-		responseStructure.setStatus(HttpStatus.BAD_REQUEST.value());
-		return new ResponseEntity<>(responseStructure, HttpStatus.OK);
-	}
-	
-	@ExceptionHandler({org.springframework.web.client.HttpClientErrorException.class,HttpServerErrorException.class})
-	public ResponseEntity<ResponseStructure>HttpClientErrorException(RestClientResponseException e){
-		responseStructure.setMessage("URL Incorrect ");
-		responseStructure.setStatus(HttpStatus.BAD_GATEWAY.value());
-		return new ResponseEntity<>(responseStructure,HttpStatus.OK);
-		
-	}
-	
-	@ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
-	public ResponseEntity<ResponseStructure> DataIntegrityViolationException(DataIntegrityViolationException e){
-	
-		responseStructure.setMessage("--DataIntegrityViolationException--");
-		responseStructure.setStatus(HttpStatus.CONFLICT.value());
-		return new ResponseEntity<>(responseStructure,HttpStatus.OK);
-	}
-	
-	public ResponseEntity<ResponseStructure> ConstraintViolationException(ConstraintViolationException a){
-		responseStructure.setMessage("Invaild Data Passed ");
-		responseStructure.setStatus(HttpStatus.BAD_REQUEST.value());
-		return new ResponseEntity<>(responseStructure,HttpStatus.OK);
-		
-		
+	public ResponseEntity<ResponseStructure> handleNullPointerException(NullPointerException e) {
+		ResponseStructure response = new ResponseStructure();
+		response.setMessage("NullPointerException occurred");
+		response.setStatus(HttpStatus.BAD_REQUEST.value());
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler({org.springframework.web.client.HttpClientErrorException.class, HttpServerErrorException.class})
+	public ResponseEntity<ResponseStructure> handleHttpClientErrorException(RestClientResponseException e) {
+		ResponseStructure response = new ResponseStructure();
+		response.setMessage("URL Incorrect");
+		response.setStatus(HttpStatus.BAD_GATEWAY.value());
+		return new ResponseEntity<>(response, HttpStatus.BAD_GATEWAY);
+	}
 
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<ResponseStructure> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+		ResponseStructure response = new ResponseStructure();
+		response.setMessage("Data integrity violation");
+		response.setStatus(HttpStatus.CONFLICT.value());
+		return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+	}
+
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<ResponseStructure> handleConstraintViolationException(ConstraintViolationException e) {
+		ResponseStructure response = new ResponseStructure();
+		response.setMessage("Invalid data passed");
+		response.setStatus(HttpStatus.BAD_REQUEST.value());
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}
 }

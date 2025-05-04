@@ -1,5 +1,6 @@
 package com.example.Service_A.ServiceImpl;
 
+import com.example.Service_A.repository.RepositoryServiceA;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,33 +9,28 @@ import org.springframework.web.client.RestTemplate;
 import com.example.Service_A.ServiceInter.ServiceAServiceInterface;
 import com.example.Service_A.dto.DtoA;
 import com.example.Service_A.entity.EntityA;
-import com.example.Service_A.repository.RespositoryServiceA;
 
 @Service
 public class ServiceAServiceImpl implements ServiceAServiceInterface {
-	
-	
+
 	@Autowired
-	RespositoryServiceA respositoryServiceA;
-	
-	
+	RepositoryServiceA repositoryServiceA;
+
 	@Autowired
 	ModelMapper modelMapper;
 	
 	@Autowired
 	RestTemplate restTemplate;
 	
-	public DtoA saveBikeA(DtoA bikeDto) {
-		respositoryServiceA.save(convertDtoToEntity(bikeDto));
-		return bikeDto;
-	}
+	public DtoA saveA(DtoA dto) {
+		return convertEntityToDto(repositoryServiceA.save(convertDtoToEntity(dto)));
+		}
 	
-	public DtoA convertEntityToDto(EntityA bikeEntity) {
-		return modelMapper.map(bikeEntity, DtoA.class);
+	public DtoA convertEntityToDto(EntityA entity) {
+		return modelMapper.map(entity, DtoA.class);
 	}
-	public EntityA convertDtoToEntity(DtoA bikeDto) {
-		return modelMapper.map(bikeDto, EntityA.class);
+	public EntityA convertDtoToEntity(DtoA dto) {
+		return modelMapper.map(dto, EntityA.class);
 	}
-
 
 }

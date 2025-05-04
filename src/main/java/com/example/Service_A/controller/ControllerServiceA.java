@@ -15,9 +15,9 @@ public class ControllerServiceA {
 	ServiceAServiceInterface serviceAServiceInterface;
 	
 	
-	@PostMapping("/saveBikeA")
-	public DtoA saveBikeA(@RequestBody DtoA bikeDto) {
-		 return serviceAServiceInterface.saveBikeA(bikeDto);
+	@PostMapping("/saveA")
+	public DtoA saveBikeA(@RequestBody DtoA dto) {
+		 return serviceAServiceInterface.saveA(dto);
 	}
 
 }
