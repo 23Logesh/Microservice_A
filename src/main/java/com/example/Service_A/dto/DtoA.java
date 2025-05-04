@@ -1,10 +1,16 @@
 package com.example.Service_A.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class DtoA {
 
-private int id;
-private String message;
+    private int id;
+    @NonNull
+    private String message;
 }
