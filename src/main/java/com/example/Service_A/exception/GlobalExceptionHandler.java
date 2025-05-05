@@ -14,32 +14,32 @@ import org.springframework.web.client.RestClientResponseException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<ResponseStructure> handleNullPointerException(NullPointerException e) {
-        ResponseStructure response = new ResponseStructure();
+    public ResponseEntity<ResponseStructure<?>> handleNullPointerException(NullPointerException e) {
+        ResponseStructure<?> response = new ResponseStructure<>();
         response.setMessage("NullPointerException occurred");
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({org.springframework.web.client.HttpClientErrorException.class, HttpServerErrorException.class})
-    public ResponseEntity<ResponseStructure> handleHttpClientErrorException(RestClientResponseException e) {
-        ResponseStructure response = new ResponseStructure();
+    public ResponseEntity<ResponseStructure<?>> handleHttpClientErrorException(RestClientResponseException e) {
+        ResponseStructure<?> response = new ResponseStructure<>();
         response.setMessage("URL Incorrect");
         response.setStatus(HttpStatus.BAD_GATEWAY.value());
         return new ResponseEntity<>(response, HttpStatus.BAD_GATEWAY);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ResponseStructure> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
-        ResponseStructure response = new ResponseStructure();
+    public ResponseEntity<ResponseStructure<?>> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        ResponseStructure<?> response = new ResponseStructure<>();
         response.setMessage("Data integrity violation");
         response.setStatus(HttpStatus.CONFLICT.value());
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ResponseStructure> handleConstraintViolationException(ConstraintViolationException e) {
-        ResponseStructure response = new ResponseStructure();
+    public ResponseEntity<ResponseStructure<?>> handleConstraintViolationException(ConstraintViolationException e) {
+        ResponseStructure<?> response = new ResponseStructure<>();
         response.setMessage("Invalid data passed");
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);

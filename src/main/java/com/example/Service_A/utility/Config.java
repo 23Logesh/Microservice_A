@@ -10,17 +10,9 @@ public class Config {
 
     ModelMapper modelMapper;
 
-    RestTemplate restTemplate;
-
     @Bean
     public ModelMapper getMapper() {
         return new ModelMapper();
     }
-
-    @Bean
-    public RestTemplate geTemplate() {
-        return new RestTemplate();
-    }
-
 
 }

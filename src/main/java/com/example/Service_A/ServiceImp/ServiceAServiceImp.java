@@ -1,7 +1,7 @@
 package com.example.Service_A.ServiceImp;
 
 import com.example.Service_A.ServiceInterface.ServiceAServiceInterface;
-import com.example.Service_A.dto.DtoA;
+import com.example.Service_A.dto.Dto;
 import com.example.Service_A.entity.EntityA;
 import com.example.Service_A.repository.RepositoryServiceA;
 import com.example.Service_A.utility.ResponseStructure;
@@ -33,12 +33,12 @@ public class ServiceAServiceImp implements ServiceAServiceInterface {
     }
 
     @Override
-    public ResponseStructure<DtoA> saveA(DtoA dto) {
+    public ResponseStructure<Dto> saveA(Dto dto) {
         log.info("[SERVICE_A] - [SAVE] - Received DTO: {} - [STARTED]", dto);
 
         EntityA entity = mapper.map(dto, EntityA.class);
         EntityA savedEntity = repository.save(entity);
-        DtoA savedDto = mapper.map(savedEntity, DtoA.class);
+        Dto savedDto = mapper.map(savedEntity, Dto.class);
 
         log.info("[SERVICE_A] - [SAVE] - Entity saved with ID: {} - [SUCCESS]", savedDto.getId());
 
@@ -47,7 +47,7 @@ public class ServiceAServiceImp implements ServiceAServiceInterface {
         return new ResponseStructure<>(HttpStatus.OK.value(), "Message has successfully saved and send to the kafka", savedDto);
     }
 
-    public void sendToKafka(DtoA dto) {
+    public void sendToKafka(Dto dto) {
         try {
             String key = String.valueOf(dto.getId());
             String payload = json.writeValueAsString(dto);
@@ -60,8 +60,8 @@ public class ServiceAServiceImp implements ServiceAServiceInterface {
         }
     }
 
-    public ResponseStructure<List<DtoA>> getAll()
+    public ResponseStructure<List<Dto>> getAll()
     {
-        return new ResponseStructure<>(HttpStatus.FOUND.value(), "Messages has successfully founded", repository.findAll().stream().map(data->mapper.map(data,DtoA.class)).toList());
+        return new ResponseStructure<>(HttpStatus.FOUND.value(), "Messages has successfully founded", repository.findAll().stream().map(data->mapper.map(data, Dto.class)).toList());
     }
 }
