@@ -18,8 +18,8 @@ public class ControllerServiceA {
     ServiceAServiceInterface serviceAServiceInterface;
 
     @Operation(summary = "Save message to DB and Kafka")
-    @PostMapping("/save")
-    public ResponseStructure<Dto> saveA(@RequestBody String message) {
+    @PostMapping("/save/{message}")
+    public ResponseStructure<Dto> saveA(@PathVariable String message) {
         return serviceAServiceInterface.saveA(new Dto(message));
     }
     @Operation(summary = "Getting messages from DB")
